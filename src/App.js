@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Navbar from './Navbar'
 import Home from './Home'
+import Invoice from './Invoice';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
       <Navbar/>
         <Switch>
           <Route path="/" exact component={Home}/>
+          <Route path="/invoice/:id" component={Invoice}/>
           {/* <Route path="/create">
             <Create/>
           </Route>
