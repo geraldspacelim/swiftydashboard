@@ -1,6 +1,5 @@
 import { Document, Page, pdfjs  } from 'react-pdf';
 import { useState, useEffect } from 'react';
-import samplePDF from './sample.pdf';
 
 const Invoice = () => {
     const [numPages, setNumPages] = useState(null);
@@ -19,7 +18,7 @@ const Invoice = () => {
     return (
         // <h2>he</h2>
         <Document
-        file={samplePDF}
+        file="https://swiftys-server.glitch.me/api/orders/getInvoice"
         >
             <Page pageNumber={pageNumber} />
         </Document>
