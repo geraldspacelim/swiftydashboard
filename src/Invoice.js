@@ -4,12 +4,7 @@ import { useState, useEffect } from 'react';
 const axios = require('axios');
 
 const Invoice = () => {
-    const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
-
-    function onDocumentLoadSuccess({ numPages }) {
-        setNumPages(numPages);
-    }
 
     useEffect(() => {
         pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;

@@ -1,5 +1,6 @@
 import {Link} from "react-router-dom";
 import Order from "./Order"
+import './index.css'
 
 const OrderList = ({orders}) => { 
 
@@ -13,6 +14,8 @@ const OrderList = ({orders}) => {
                     <th>Contact</th>
                     <th>Used Promo Code</th> 
                     <th>Total Cost</th>
+                    <th>Datetime Purchased</th>
+                    <th>Status</th>
                     <th>Actions</th>
                     </tr>
                 </thead>
