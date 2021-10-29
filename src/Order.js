@@ -1,5 +1,6 @@
 import { useHistory } from "react-router-dom";
-import { FaCheck, FaTelegramPlane, FaTimes, FaUndo, FaTrashAlt } from "react-icons/fa";
+import { FaCheck, FaTelegramPlane, FaPencilAlt, FaUndo, FaTrashAlt } from "react-icons/fa";
+import './index.css'
 
 const Order = ({order, deleteRecord, verifyRecord}) => { 
     const history = useHistory();
@@ -13,6 +14,11 @@ const Order = ({order, deleteRecord, verifyRecord}) => {
         return d.toLocaleString()
     }
 
+    const editRecord = (e) => {
+        e.stopPropagation();
+        history.push(`/record/${order._id}`); 
+    }
+ 
 
     return (
             <tr onClick={handleRowClick}>
@@ -28,7 +34,6 @@ const Order = ({order, deleteRecord, verifyRecord}) => {
                     {order.modified ?  <span className="badge rounded-pill bg-warning">modified</span> : null} */}
                 </td>
                 <td className="col-md-1">
-                    <div class="d-flex justify-content-between">
                         <button
                             type="button"
                             className="btn btn-success"
@@ -37,9 +42,9 @@ const Order = ({order, deleteRecord, verifyRecord}) => {
                         </button>
                         <button
                             type="button"
-                            className="btn btn-primary"
-                            onClick={() => {}}
-                        > <FaTelegramPlane  />
+                            className="btn btn-warning"
+                            onClick={editRecord}
+                        > <FaPencilAlt  />
                         </button>
                         <button
                             type="button"
@@ -47,9 +52,6 @@ const Order = ({order, deleteRecord, verifyRecord}) => {
                             onClick={(e) => {deleteRecord(e, order._id)}}
                         > <FaTrashAlt  />
                         </button>
-                    </div>
-
-                    
                 </td>
             </tr>
      );

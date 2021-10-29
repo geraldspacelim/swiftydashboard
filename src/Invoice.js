@@ -3,7 +3,7 @@ import { Document, Page, pdfjs  } from 'react-pdf';
 import { useState, useEffect } from 'react';
 const axios = require('axios');
 
-const Invoice = () => {
+const Invoice = ({orderId}) => {
     const [pageNumber, setPageNumber] = useState(1);
 
     useEffect(() => {
