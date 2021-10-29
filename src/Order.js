@@ -17,34 +17,39 @@ const Order = ({order, deleteRecord, verifyRecord}) => {
     return (
             <tr onClick={handleRowClick}>
                 <td className="col-md-1">{order.orderId}</td>
-                <td className="col-md-2">{order.address.name}</td>
+                <td className="col-md-1">{order.address.name}</td>
                 <td className="col-md-1">{order.address.phone}</td>
                 <td className="col-md-1">{order.usedPromoCode}</td>
                 <td className="col-md-1">${order.totalCost.toFixed(2)}</td>
                 <td className="col-md-2">{convertDatetime(order.date.toLocaleString())}</td>
                 <td className="col-md-1">
-                    <span className="badge rounded-pill bg-success">verified</span>
-                    {order.modified ?  <span className="badge rounded-pill bg-warning">modified</span> : null}
+                    {order.verified && <span className="badge rounded-pill bg-success">verified</span>}
+                    {/* <span className="badge rounded-pill bg-success">verified</span>
+                    {order.modified ?  <span className="badge rounded-pill bg-warning">modified</span> : null} */}
                 </td>
-                <td className="col-md-2">
-                    <button
-                        type="button"
-                        className="btn btn-success"
-                        onClick={(e) => verifyRecord(e, order._id)}
-                    > <FaCheck />
-                    </button>
-                    <button
-                        type="button"
-                        className="btn btn-primary"
-                        onClick={() => {}}
-                    > <FaTelegramPlane  />
-                    </button>
-                    <button
-                        type="button"
-                        className="btn btn-danger"
-                        onClick={(e) => {deleteRecord(e, order._id)}}
-                    > <FaTrashAlt  />
-                    </button>
+                <td className="col-md-1">
+                    <div class="d-flex justify-content-between">
+                        <button
+                            type="button"
+                            className="btn btn-success"
+                            onClick={(e) => verifyRecord(e, order._id)}
+                        > <FaCheck />
+                        </button>
+                        <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={() => {}}
+                        > <FaTelegramPlane  />
+                        </button>
+                        <button
+                            type="button"
+                            className="btn btn-danger"
+                            onClick={(e) => {deleteRecord(e, order._id)}}
+                        > <FaTrashAlt  />
+                        </button>
+                    </div>
+
+                    
                 </td>
             </tr>
      );

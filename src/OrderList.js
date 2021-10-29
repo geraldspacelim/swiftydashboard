@@ -15,9 +15,9 @@ const OrderList = ({orders, setRequestData}) => {
         if (answer) {
             axios.delete("https://swiftys-server.glitch.me/api/orders/deleteOrder/" +  _id)
                 .then(res => {
+                    setRequestData(new Date())
                     setAlert("Record deleted successfully")
                     setShowAlert(true)
-                    setRequestData(new Date())
                     setTimeout(function() { setShowAlert(false) }, 2000);
                 }).catch(err => {
                     console.log(err)
@@ -31,9 +31,15 @@ const OrderList = ({orders, setRequestData}) => {
         const answer = window.confirm("Would you like to verify record?");
         if (answer) {
             // approve
-            setAlert("Record verified successfully")
-            setShowAlert(true)
-            setTimeout(function() { setShowAlert(false) }, 2000);
+            axios.post("https://swiftys-server.glitch.me/api/orders/verifyOrder/" +  _id)
+                .then(res => {
+                    setRequestData(new Date())
+                    setAlert("Record verified successfully")
+                    setShowAlert(true)
+                    setTimeout(function() { setShowAlert(false) }, 2000);
+                }).catch(err => {
+                    console.log(err)
+                })
         }
     }
 
