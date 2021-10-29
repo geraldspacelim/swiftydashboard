@@ -1,11 +1,11 @@
 import { useHistory } from "react-router-dom";
 import { FaCheck, FaTelegramPlane, FaTimes, FaUndo, FaTrashAlt } from "react-icons/fa";
 
-const Order = ({order, key}) => { 
+const Order = ({order, deleteRecord, verifyRecord}) => { 
     const history = useHistory();
     
     const handleRowClick = () => {
-      history.push(`/invoice/${key}`);
+      history.push(`/invoice/${order.orderId}`);
     }
     
     const convertDatetime = (dt) => {
@@ -13,13 +13,7 @@ const Order = ({order, key}) => {
         return d.toLocaleString()
     }
 
-    const verifyRecord = (e) => {
-        e.stopPropagation();
-        var answer = window.confirm("Would you like to verify record?");
-        if (answer) {
-            
-        }
-    }
+
     return (
             <tr onClick={handleRowClick}>
                 <td className="col-md-1">{order.orderId}</td>
@@ -29,14 +23,14 @@ const Order = ({order, key}) => {
                 <td className="col-md-1">${order.totalCost.toFixed(2)}</td>
                 <td className="col-md-2">{convertDatetime(order.date.toLocaleString())}</td>
                 <td className="col-md-1">
-                    <span class="badge rounded-pill bg-success">verified</span>
-                    {order.modified ?  <span class="badge rounded-pill bg-warning">modified</span> : <div/>}
+                    <span className="badge rounded-pill bg-success">verified</span>
+                    {order.modified ?  <span className="badge rounded-pill bg-warning">modified</span> : null}
                 </td>
                 <td className="col-md-2">
                     <button
                         type="button"
                         className="btn btn-success"
-                        onClick={(e) => verifyRecord(e)}
+                        onClick={(e) => verifyRecord(e, order._id)}
                     > <FaCheck />
                     </button>
                     <button
@@ -48,7 +42,7 @@ const Order = ({order, key}) => {
                     <button
                         type="button"
                         className="btn btn-danger"
-                        onClick={() => {}}
+                        onClick={(e) => {deleteRecord(e, order._id)}}
                     > <FaTrashAlt  />
                     </button>
                 </td>
