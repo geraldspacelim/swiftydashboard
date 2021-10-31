@@ -33,8 +33,28 @@ const Record = () => {
     setOrder({ ...order, cart: remainingCart });
   };
 
+  function randomInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  // handle click event of the Add button
+  const addProductBox = () => {
+    const tempCart = {
+      id: randomInteger(999999, 99999999999),
+      size: "",
+      quantity: 1,
+      price: null,
+      name: "",
+    };
+    order.cart.push(tempCart);
+    setOrder({
+      ...order,
+      cart: order.cart,
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(order.cart);
     // const blog = {title, body, author}
     // console.log(blog)
     // setIsLoading(true)
@@ -109,11 +129,17 @@ const Record = () => {
             <br />
             <div className="form-group">
               <input
+                onClick={addProductBox}
                 type="submit"
                 value="Add Product"
                 className="btn btn-primary"
               />
-              <input type="submit" value="Update" className="btn btn-primary" />
+              <input
+                type="submit"
+                onClick={handleSubmit}
+                value="Update"
+                className="btn btn-primary"
+              />
             </div>
           </form>
         </div>
