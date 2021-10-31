@@ -8,18 +8,27 @@ const Record = () => {
   const { id } = useParams();
   const [order, setOrder] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [products, setProducts] = useState(null)
   const [name, setName] = useState("");
   const [contact, setContact] = useState("");
   const [email, setEmail] = useState("");
   const [hall, setHall] = useState("");
-  const [cart, setCart] = useState([]);
+  const [totalCost, setTotalCost] =  useState(0)
 
   useEffect(() => {
     axios
       .get("https://swiftys-server.glitch.me/api/orders/order/" + id)
       .then((res) => {
-        setOrder(res.data);
-        setIsLoading(false);
+        setOrder(res.data);     
+        setTotalCost(res.data.totalCost)   
+        axios
+          .get("https://swiftys-server.glitch.me/api/shop/all")
+          .then((res) => {
+            setProducts(res.data[1].products)
+            setIsLoading(false)
+          }).catch((err) => {
+            console.log(err)
+          })
       })
       .catch((err) => {
         console.log(err);
@@ -33,17 +42,24 @@ const Record = () => {
     setOrder({ ...order, cart: remainingCart });
   };
 
-  function randomInteger(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  const updateOrder = (i, newCart) => {
+    console.log(newCart)
+    let tempCart = [...order.cart]
+    tempCart[i] = newCart
+    setOrder({
+      ...order,
+      cart: tempCart,
+    });
   }
-  // handle click event of the Add button
-  const addProductBox = () => {
+
+
+  const addNewProduct = () => {
+    const initId = 1
     const tempCart = {
-      id: randomInteger(999999, 99999999999),
+      id: initId,
       size: "",
       quantity: 1,
-      price: null,
-      name: "",
+      name: products[initId - 1].name,
     };
     order.cart.push(tempCart);
     setOrder({
@@ -54,25 +70,13 @@ const Record = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(order.cart);
-    // const blog = {title, body, author}
-    // console.log(blog)
-    // setIsLoading(true)
-    // fetch('http://localhost:8000/blogs', {
-    //     method: 'POST',
-    //     headers: {"Content-Type": "application/json"},
-    //     body: JSON.stringify(blog)
-    // }).then(() => {
-    //     console.log("new blog added")
-    //     setIsLoading(false);
-    //     history.push('/');
-    // })
+    
   };
 
   return (
     <div className="edit">
       {isLoading && <div>Loading...</div>}
-      {order && (
+      {(order && products) && (
         <div className="container">
           <form onSubmit={handleSubmit}>
             <div className="form-group">
@@ -116,24 +120,24 @@ const Record = () => {
               <input
                 type="text"
                 className="form-control classname"
-                value={order.totalCost}
+                value={`$${totalCost}`}
                 readOnly
               />
               <br />
-              {order.cart.map((item, xkey) => {
+              {order.cart.map((item, index) => {
                 return (
-                  <Item item={item} key={item.id} xkey={xkey} todel={todel} />
+                  <Item item={item} key={index} idx={index} todel={todel} products={products} updateOrder={updateOrder}/>
                 );
               })}
             </div>
             <br />
             <div className="form-group">
-              <input
-                onClick={addProductBox}
-                type="submit"
+            <button type="button" className="btn btn-primary"
+                onClick={addNewProduct}
                 value="Add Product"
                 className="btn btn-primary"
-              />
+            > Add Product
+            </button>
               <input
                 type="submit"
                 onClick={handleSubmit}
