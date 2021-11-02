@@ -56,6 +56,7 @@ const OrderList = ({orders, setRequestData}) => {
                     <th>Contact</th>
                     <th>Promo</th> 
                     <th>Total Cost</th>
+                    <th>Delivery Option</th>
                     <th>Datetime Purchased</th>
                     <th>Status</th>
                     <th>Actions</th>

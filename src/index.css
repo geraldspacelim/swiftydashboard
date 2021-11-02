@@ -36,3 +36,17 @@ td, tr {
   margin-left: 5px;
   margin-right: 5px;
 }
+
+.single-item{
+  margin-bottom: 10px;
+}
+
+label{
+  font-size: 18px;
+}
+
+.container {
+  margin-bottom: 30px;
+}
+
+
