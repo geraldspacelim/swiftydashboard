@@ -52,7 +52,7 @@ const Record = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [id]);
 
   const todel = (i) => {
     const remainingCart = cart.filter((el, idx) => {
@@ -69,11 +69,11 @@ const Record = () => {
 
   const calculateTotalCost = () => {
     let newCost = 0
-    cart.map(item => {  
-      newCost += (products.find(p => p.id == item.id).price * item.quantity)
-    })
+    cart.map(item => ( 
+      newCost += (products.find(p => p.id === item.id).price * item.quantity)
+    ))
     newCost += DELIVERY_FEE
-    newCost += promoCode == PROMO_CODE ? -5 : 0
+    newCost += promoCode === PROMO_CODE ? -5 : 0
     setTotalCost(newCost)
   }
 
@@ -85,7 +85,7 @@ const Record = () => {
       id: initId,
       size: "",
       quantity: 1,
-      price: products.find(p => p.id == initId).price,
+      price: products.find(p => p.id === initId).price,
       name: products[initId - 1].name,
     };
     
@@ -125,7 +125,7 @@ const Record = () => {
 
   return (
     <div className="edit">
-      {isLoading && <div>Loading...</div>}
+      <div className="loader" hidden={!isLoading}></div>
       {(order && products) && (
         <div className="container">
           <form onSubmit={handleSubmit}>
@@ -254,7 +254,7 @@ const Record = () => {
             </div>
             <br />
             <div className="form-group">
-            <button type="button" className="btn btn-primary"
+            <button type="button" 
                 onClick={addNewProduct}
                 value="Add Product"
                 className="btn btn-primary"

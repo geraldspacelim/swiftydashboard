@@ -1,7 +1,6 @@
-import {Link} from "react-router-dom";
 import Order from "./Order"
 import './index.css'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 const axios = require('axios');
 
 const OrderList = ({orders, setRequestData}) => { 

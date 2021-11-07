@@ -1,5 +1,4 @@
 import "./index.css";
-import { useState, useEffect } from "react";
 import { FaMinus } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
 import './index.css'
@@ -15,7 +14,7 @@ const Item = ({ item, idx, todel, products, updateOrder }) => {
               id="exampleFormControlSelect1"
               value={item.name}
               onChange={(e) => {
-                const newItem = products.find(p => p.name == e.target.value)
+                const newItem = products.find(p => p.name === e.target.value)
                 updateOrder(idx, {id: newItem.id, size: "", quantity: item.quantity, price: newItem.price, name: e.target.value})
               }}
             > 
@@ -29,7 +28,7 @@ const Item = ({ item, idx, todel, products, updateOrder }) => {
               required
               value={item.quantity}
               onChange={(e) => {
-                const newItem = products.find(p => p.name == item.name)
+                const newItem = products.find(p => p.name === item.name)
                 updateOrder(idx, {id: item.id, size: "", quantity: e.target.value, price: newItem.price, name: item.name})
               }}
             />
@@ -38,7 +37,7 @@ const Item = ({ item, idx, todel, products, updateOrder }) => {
             <input
                 type="text"
                 className="form-control classname"
-                value={`$${products.find(p => p.name == item.name).price.toFixed(2)}`}
+                value={`$${products.find(p => p.name === item.name).price.toFixed(2)}`}
                 readOnly
               />
           </div>

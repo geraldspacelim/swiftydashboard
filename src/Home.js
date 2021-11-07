@@ -20,7 +20,7 @@ const Home = () => {
 
     return ( 
         <div className="home">
-            {isLoading && <div>Loading...</div>}
+            <div className="loader" hidden={!isLoading}></div>
             {orders && <OrderList orders={orders} setRequestData={setRequestData}/>}
         </div>
      );

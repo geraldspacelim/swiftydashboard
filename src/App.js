@@ -13,15 +13,6 @@ function App() {
           <Route path="/" exact component={Home}/>
           <Route path="/invoice/:id" component={Invoice}/>
           <Route path="/record/:id" component={Record} />
-          {/* <Route path="/create">
-            <Create/>
-          </Route>
-          <Route path="/blogs/:id">
-            <BlogDetails/>
-          </Route>
-          <Route path="*">
-            <NotFound/>
-          </Route> */}
         </Switch>
       </div>
     </Router>  

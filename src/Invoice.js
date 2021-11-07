@@ -2,24 +2,35 @@ import './index.css';
 import { Document, Page, pdfjs  } from 'react-pdf';
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
-const axios = require('axios');
 
-const Invoice = ({orderId}) => {
-    const [pageNumber, setPageNumber] = useState(1);
+const Invoice = () => {
+    const [numPages, setNumPages] = useState(null);
     const { id } = useParams();
 
     useEffect(() => {
         pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
     }, [])
 
- 
+    const onDocumentLoadSuccess = ({ numPages: nextNumPages }) => {
+        setNumPages(nextNumPages);
+      }
 
     return (
-        // <h2>he</h2>
         <Document
-        file={"https://swiftys-server.glitch.me/api/orders/getInvoice/" + id} 
+        file={"https://swiftys-server.glitch.me/api/orders/getInvoice/" + id}
+        onLoadSuccess={onDocumentLoadSuccess} 
         >
-            <Page pageNumber={pageNumber} />
+            {
+              Array.from(
+                new Array(numPages),
+                (el, index) => (
+                  <Page
+                    key={`page_${index + 1}`}
+                    pageNumber={index + 1}
+                  />
+                ),
+              )
+            }
         </Document>
     )
 }

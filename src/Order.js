@@ -1,5 +1,5 @@
 import { useHistory } from "react-router-dom";
-import { FaCheck, FaTelegramPlane, FaPencilAlt, FaUndo, FaTrashAlt } from "react-icons/fa";
+import { FaCheck, FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 import './index.css'
 
 const Order = ({order, deleteRecord, verifyRecord}) => { 
@@ -27,8 +27,8 @@ const Order = ({order, deleteRecord, verifyRecord}) => {
                 <td className="col-md-1">{order.address.phone}</td>
                 <td className="col-md-1">{order.usedPromoCode}</td>
                 <td className="col-md-1">${order.totalCost.toFixed(2)}</td>
-                <td className="col-md-1">{order.deliveryOption.split(',')[0]}</td>
-                <td className="col-md-2">{convertDatetime(order.date.toLocaleString())}</td>
+                <td className="col-md-1">{`${order.deliveryOption.split(',')[0]}, ${order.address.hall}`}</td>
+                <td className="col-md-1">{convertDatetime(order.date.toLocaleString())}</td>
                 <td className="col-md-1">
                     {order.verified && <span className="badge rounded-pill bg-success">verified</span>}
                     {order.modified ?  <span className="badge rounded-pill bg-warning">modified</span> : null}
